@@ -1,9 +1,7 @@
 from airflow import DAG
 from airflow.providers.snowflake.operators.snowflake import SnowflakeOperator
-from airflow.providers.snowflake.hooks.snowflake import SnowflakeHook
 from datetime import datetime, timedelta
 
-# Definindo a DAG
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
@@ -20,7 +18,6 @@ with DAG(
     tags=['init']
 ) as dag:
     
-    # Definindo as queries SQL para criar o banco de dados e esquemas
     create_database_sql = """
     CREATE DATABASE IF NOT EXISTS dublin_public_transport;
     """
@@ -50,6 +47,4 @@ with DAG(
         snowflake_conn_id='snowflake_conn',
     )
 
-
-    # Definindo a ordem de execução
     create_database >> create_staging_schema >> create_clean_schema 

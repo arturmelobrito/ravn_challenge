@@ -1,3 +1,5 @@
+snowflake-sqlalchemy
+snowflake-connector-python
 apache-airflow-providers-snowflake
 pandas
 requests
