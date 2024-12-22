@@ -236,6 +236,11 @@ services:
         fi
         mkdir -p /sources/logs /sources/dags /sources/plugins
         chown -R "${AIRFLOW_UID}:0" /sources/{logs,dags,plugins}
+        airflow connections add 'snowflake_conn' \
+          --conn-type 'snowflake' \
+          --conn-login '${SNOWFLAKE_USER}' \
+          --conn-password '${SNOWFLAKE_PASSWORD}' \
+          --conn-extra '{"role": "${SNOWFLAKE_ROLE}", "account":"${SNOWFLAKE_ACCOUNT}"}'
         exec /entrypoint airflow version
     # yamllint enable rule:line-length
     environment:
@@ -245,6 +250,10 @@ services:
       _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
       _PIP_ADDITIONAL_REQUIREMENTS: ''
+      SNOWFLAKE_USER: ${SNOWFLAKE_USER}
+      SNOWFLAKE_PASSWORD: ${SNOWFLAKE_PASSWORD}
+      SNOWFLAKE_ACCOUNT: ${SNOWFLAKE_ACCOUNT}
+      SNOWFLAKE_ROLE: ${SNOWFLAKE_ROLE}
     user: "0:0"
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}:/sources
