@@ -70,11 +70,10 @@ Make sure Docker and Docker Compose are installed on your machine. You can follo
 
 ### 4. Create airflow directories
 
-Run those 2 cli commands:
+Run the following cli command:
 
 ```
 mkdir -p ./logs ./plugins ./config
-echo -e "AIRFLOW_UID=$(id -u)" > .env
 ``` 
 ### 5. Build and Run the Containers
 
