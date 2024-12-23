@@ -2,6 +2,7 @@ from airflow import DAG
 from airflow.providers.snowflake.operators.snowflake import SnowflakeOperator
 from datetime import datetime, timedelta
 
+DAG_NAME = 'create_snowflake_database_and_schema'
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
@@ -10,7 +11,7 @@ default_args = {
 }
 
 with DAG(
-    dag_id='create_snowflake_database_and_schema',
+    dag_id=DAG_NAME,
     default_args=default_args,
     schedule_interval=None,
     start_date=datetime(2024, 1, 1),
