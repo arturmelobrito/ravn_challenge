@@ -21,10 +21,6 @@ with DAG(
     create_database_sql = """
     CREATE DATABASE IF NOT EXISTS dublin_public_transport;
     """
-
-    create_staging_schema_sql = """
-    CREATE SCHEMA IF NOT EXISTS dublin_public_transport.staging;
-    """
     
     create_clean_schema_sql = """
     CREATE SCHEMA IF NOT EXISTS dublin_public_transport.clean;
@@ -34,12 +30,6 @@ with DAG(
         sql=create_database_sql,
         snowflake_conn_id='snowflake_conn',
     )
-    
-    create_staging_schema = SnowflakeOperator(
-        task_id='create_staging_schema',
-        sql=create_staging_schema_sql,
-        snowflake_conn_id='snowflake_conn',
-    )
 
     create_clean_schema = SnowflakeOperator(
         task_id='create_clean_schema',
@@ -47,4 +37,4 @@ with DAG(
         snowflake_conn_id='snowflake_conn',
     )
 
-    create_database >> create_staging_schema >> create_clean_schema 
+    create_database >> create_clean_schema 
