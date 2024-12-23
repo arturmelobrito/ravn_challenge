@@ -240,8 +240,7 @@ services:
           --conn-type 'snowflake' \
           --conn-login '${SNOWFLAKE_USER}' \
           --conn-password '${SNOWFLAKE_PASSWORD}' \
-          --conn-database '${SNOWFLAKE_DATABASE}' \
-          --conn-extra '{"role": "${SNOWFLAKE_ROLE}", "account":"${SNOWFLAKE_ACCOUNT}"}'
+          --conn-extra '{"role": "${SNOWFLAKE_ROLE}", "account":"${SNOWFLAKE_ACCOUNT}", "database":"${SNOWFLAKE_DATABSE}"}'
         exec /entrypoint airflow version
     # yamllint enable rule:line-length
     environment:
@@ -255,7 +254,7 @@ services:
       SNOWFLAKE_PASSWORD: ${SNOWFLAKE_PASSWORD}
       SNOWFLAKE_ACCOUNT: ${SNOWFLAKE_ACCOUNT}
       SNOWFLAKE_ROLE: ${SNOWFLAKE_ROLE}
-      SNOWFLAKE_DATABASE: ${SNOWFLAKE_DATABASE}
+      SNOWFLAKE_DATABSE: ${SNOWFLAKE_DATABSE}
     user: "0:0"
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}:/sources
