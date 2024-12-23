@@ -68,7 +68,15 @@ Make sure Docker and Docker Compose are installed on your machine. You can follo
 - [Install Docker](https://docs.docker.com/)
 - [Install Docker Compose](https://docs.docker.com/compose/install/)
 
-### 4. Build and Run the Containers
+### 4. Create airflow directories
+
+Run those 2 cli commands:
+
+```
+mkdir -p ./logs ./plugins ./config
+echo -e "AIRFLOW_UID=$(id -u)" > .env
+``` 
+### 5. Build and Run the Containers
 
 Once Docker and Docker Compose are installed, you can build and run the airflow-init container to ensure airflow initializes correctly:
 
@@ -82,7 +90,7 @@ If building was successfull, then run:
 docker compose up
 ```
 
-### 5. Access Airflow Web UI
+### 6. Access Airflow Web UI
 Once the containers are up and running, you can access the Airflow web UI to monitor the pipeline. Open your browser and navigate to:
 
 ```
@@ -94,6 +102,6 @@ The default login credentials are:
 - Username: `airflow`
 - Password: `airflow`
 
-### 6. Trigger the DAGs
+### 7. Trigger the DAGs
 
 You will first trigger the `create_snowflake_database_and_schema` DAG to prepare the database. Then you just need to "unpause" the other DAGs, each for a different acquisition pipeline, that it will trigger automatically and after that, daily.
