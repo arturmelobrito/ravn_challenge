@@ -53,11 +53,12 @@ def data_quality_check(df):
 def clean_data(df):
 
     try:
-        df['last_reported'] = df['last_reported'].astype('datetime64[us]').dt.tz_localize('Europe/Dublin', ambiguous='True')
+        df['last_reported'] = df['last_reported'].astype('datetime64[us]').dt.tz_localize('UTC', ambiguous='True')
         df['datetime_sk'] = df['last_reported'].apply(lambda x: int(x.strftime('%Y%m%d%H%M')))
 
         df = df.rename(columns={'lon':'long'})
 
+        df['last_reported'] = df['last_reported'].dt.strftime('%Y-%m-%d %H:%M:%S')
         df['num_bikes_available'] = df['num_bikes_available'].astype(int)
         df['num_docks_available'] = df['num_docks_available'].astype(int)
         df['capacity'] = df['capacity'].astype(int)
